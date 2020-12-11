@@ -1,0 +1,14 @@
+// Extentions to install:
+// - tslint
+// - prettier
+// - react native tools
+{
+    "editor.tabSize": 2,
+    "tslint.autoFixOnSave": true,
+    "editor.formatOnSave": true,
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "cSpell.words": ["leaflet", "webview"],
+    "files.autoSave": "afterDelay"
+  }
+  

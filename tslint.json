@@ -1,0 +1,13 @@
+{
+  "extends": "tslint-config-trucknet-io",
+  "linterOptions": {
+    "exclude": ["*.json", "**/*.json"]
+  },
+  "rules": {
+    "no-floating-promises": false,
+    "import-name": [
+      true,
+      null
+    ]
+  }
+}
