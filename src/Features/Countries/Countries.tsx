@@ -41,11 +41,7 @@ const Countries = () => {
       <CountryCard
         key={country.name}
         style={styles.cardContainer}
-        label={country.name}
-        description={country.region}
-        position={country.latlng}
-        countryCode={country.alpha2Code}
-        flagUri={country.flag}
+        country={country}
       />
     );
   };
@@ -81,8 +77,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     flex: 1,
     padding: 12,
-    borderLeftWidth: 8,
-    borderLeftColor: themeColor,
+    flexDirection: "row",
     ...getShadowStyle(4),
   },
 });

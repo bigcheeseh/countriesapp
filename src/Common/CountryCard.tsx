@@ -2,22 +2,19 @@
 import React from "react";
 import { Animated, GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from "react-native";
 import Star from "src/Icons/Star";
-import Thumbnail from "./FlagImage";
-
+import FlagImage from "./FlagImage";
+import { Country} from "src/Api"
 
 
 interface Props {
   style: ViewStyle;
-  position: number[];
-  label?: React.ReactNode;
-  description?: React.ReactNode;
+  country: Country;
   isFavorite?: boolean;
   children?: JSX.Element | JSX.Element[] | null;
-  address?: string;
-  countryCode: string;
-  flagUri: string;
   onStarPress?(e: GestureResponderEvent): void;
 }
+
+type TranslationsKeys = keyof Country["translations"]
 
 const EventCard = (props: Props) => {
   const [mapHeight] = React.useState(new Animated.Value(0));
@@ -45,21 +42,23 @@ const EventCard = (props: Props) => {
   };
   
   const Card = React.useMemo(() => {
-    console.log(props.label, props.countryCode)
     return (
       <View style={style}>
-        <View style={styles.container}>
-          <TouchableOpacity  onPress={animateToggleCard} style={styles.textAndStarContainer}>
+            <View style={styles.textContainer}>
+              <Text>{props.country.name}</Text>
+              <Text>{props.country.nativeName}</Text>
+              <Text>{props.country.capital}</Text>
+              <Text>{props.country.timezones}</Text>
+              <Text>{props.country.population}</Text>
+              <Text style={{flexDirection: "row"}}>{props.country.languages.map((language) => <Text key={language.name} style={{ marginRight: 4 }}>{language.name}</Text>)}</Text>
+              <Text style={{flexDirection: "row"}}>{Object.keys(props.country.translations).map((key) => <Text key={key} style={{ marginRight: 4 }}>{props.country.translations[key as TranslationsKeys]}</Text>)}</Text>
+            </View>
+          <View style={{alignItems: "flex-end", justifyContent: "space-between", flex: 1}}>
             <TouchableOpacity onPress={props.onStarPress}>
               <Star color={props.isFavorite ? "#ffd27d" : "#fff"}/>
             </TouchableOpacity>
-            <View style={styles.textContainer}>
-              <Text>{props.label}</Text>
-              <Text>{props.description}</Text>
-            </View>
-          </TouchableOpacity>
-          <Thumbnail countryCode={props.countryCode} logoUri={props.flagUri}/>
-        </View>
+            <FlagImage countryCode={props.country.alpha2Code} logoUri={props.country.flag}/>
+          </View>
       </View>
     );
   }, [isActive, props.isFavorite]);
@@ -79,6 +78,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     marginHorizontal: 12,
+    flex: 2,
   },
   mapContainer: {flex: 1, marginTop: 12 }
 });
