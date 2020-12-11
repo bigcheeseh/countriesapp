@@ -48,7 +48,7 @@ const EventCard = (props: Props) => {
     return (
       <View style={style}>
             <View style={styles.textContainer}>
-              <TouchableOpacity onPress={() => navigation.navigate("Country", props.country)}>
+              <TouchableOpacity onPress={() => navigation.navigate("Country", { ...props.country, isFavorite: props.isFavorite, onStarPress: props.onStarPress })}>
                 <Text style={{ fontSize: 16, fontWeight: "bold"}}>{props.country.name}</Text>
               </TouchableOpacity>
               <Text>{props.country.nativeName}</Text>

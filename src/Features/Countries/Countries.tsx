@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useMemo, useState } from "react";
-import { FlatList, ListRenderItemInfo, StyleSheet, Text } from "react-native";
+import { FlatList, ListRenderItemInfo, StyleSheet, ActivityIndicator } from "react-native";
 import Api, { Country } from "src/Api";
 import CountryCard from "src/Common/CountryCard";
 import { getShadowStyle } from "src/Common/styles";
@@ -8,40 +8,59 @@ import { getShadowStyle } from "src/Common/styles";
 
 const getKey = (item: Country) => String(item.name);
 
-const Countries = () => {
-  const [countries, setCountries] = useState<Country[]>([]);
-  const [favoriteCountriesIds, setFavoriteCountriesId] = useState<number[]>([]);
+interface Props {
+  isFavoriteCountriesList?: boolean
+}
+
+const Countries = (props: Props) => {
+  const [countries, setCountries] = useState<Country[] | null>(null);
+  const [favoriteCountryCodes, setFavoriteCountryCode] = useState<Country["alpha2Code"][]>([]);
 
   useEffect(() => {
     const setCountriesAsync = async () => {
       const newCountries = await Api.getCountries();
-      setCountries(newCountries);
-      
+      setCountries(newCountries); 
     };
     setCountriesAsync();
+
+    const setFavoriteCountryCodesAsync = async () => {
+      const favCountryCodes = await AsyncStorage.getItem("favoriteCountryCodes") || [];
+      setFavoriteCountryCode(JSON.parse(favCountryCodes)); 
+    };
+    setFavoriteCountryCodesAsync();
   }, []);
 
 
 
-  const handleSetFavoritesEventId = (id: number) => () => {
-    if (favoriteCountriesIds.includes(id)) {
-      setFavoriteCountriesId((favCountries) =>
-        favCountries.filter((eventId) => eventId !== id),
+  const handleSetFavoriteCountryCode = (code: Country["alpha2Code"]) => () => {
+    if (favoriteCountryCodes.includes(code)) {
+      setFavoriteCountryCode((favCountries) =>
+        favCountries.filter((countryCode) => countryCode !== code),
       );
       return;
     }
-    setFavoriteCountriesId((favCountries) => [...favCountries, id]);
+    setFavoriteCountryCode((favCountries) => {
+      return [...favCountries, code]
+    });
+    
     return;
   };
 
+  useEffect(() => {
+    AsyncStorage.setItem("favoriteCountryCodes", JSON.stringify(favoriteCountryCodes))
+  }, [favoriteCountryCodes])
+
   const renderCountry = (listItem: ListRenderItemInfo<Country>) => {
     const country = listItem.item;
-
+    const isFavorite = favoriteCountryCodes.includes(country.alpha2Code)
+    if(props.isFavoriteCountriesList && !isFavorite) return;
     return (
       <CountryCard
-        key={country.name}
+        key={country.alpha3Code}
+        onStarPress={handleSetFavoriteCountryCode(country.alpha2Code)}
         style={styles.cardContainer}
         country={country}
+        isFavorite={isFavorite}
       />
     );
   };
@@ -57,9 +76,11 @@ const Countries = () => {
         initialNumToRender={8}
       />
     ),
-    [countries],
+    [countries, favoriteCountryCodes],
   );
-
+  if(!countries) {
+    return <ActivityIndicator />
+  }
   return CountriesList;
 };
 

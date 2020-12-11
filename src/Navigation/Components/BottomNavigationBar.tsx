@@ -5,9 +5,8 @@ import {
 } from "@react-navigation/native";
 import * as React from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
-import History from "src/Icons/History";
 import House from "src/Icons/House";
-import Support from "src/Icons/Support";
+import Star from "src/Icons/Star";
 import NavigationButton from "./NavigationButton";
 
 const BottomNavigationBar = () => {
@@ -20,7 +19,7 @@ const BottomNavigationBar = () => {
   };
 
   const navigateToSettingsScreen = () => {
-    navigate("Support");
+    navigate("Favorites");
   };
 
   const navigate = (routeName: string): void => {
@@ -50,9 +49,9 @@ const BottomNavigationBar = () => {
           />
           <NavigationButton
             handlePress={navigateToSettingsScreen}
-            isActive={isActive("Support")}
-            label="Support"
-            Icon={Support}
+            isActive={isActive("Favorites")}
+            label="Favorites"
+            Icon={Star}
           />
         </>
     </SafeAreaView>

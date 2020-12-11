@@ -2,7 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import Countries from "src/Features/Countries";
 import History from "src/Features/Country";
-import Support from "src/Features/Support";
+import FavoriteCountries from "src/Features/FavoriteCountries";
 
 const screens = [
   {
@@ -20,10 +20,10 @@ const screens = [
     },
   },
   {
-    screen: Support,
-    name: "Support",
+    screen: FavoriteCountries,
+    name: "Favorites",
     navigationOptions: {
-      title: "SupportScreen",
+      title: "FavoritesScreen",
     },
   },
 ];
