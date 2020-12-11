@@ -18,9 +18,7 @@ const BottomNavigationBar = () => {
   const navigateToScheduleScreen = () => {
     navigate("Countries");
   };
-  const navigateToHistoryScreen = () => {
-    navigate("History");
-  };
+
   const navigateToSettingsScreen = () => {
     navigate("Support");
   };
@@ -49,12 +47,6 @@ const BottomNavigationBar = () => {
             isActive={isActive("Countries")}
             label="Countries"
             Icon={House}
-          />
-          <NavigationButton
-            handlePress={navigateToHistoryScreen}
-            isActive={isActive("History")}
-            label="History"
-            Icon={History}
           />
           <NavigationButton
             handlePress={navigateToSettingsScreen}

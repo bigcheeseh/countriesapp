@@ -1,7 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import Countries from "src/Features/Countries";
-import History from "src/Features/History";
+import History from "src/Features/Country";
 import Support from "src/Features/Support";
 
 const screens = [
@@ -14,9 +14,9 @@ const screens = [
   },
   {
     screen: History,
-    name: "History",
+    name: "Country",
     navigationOptions: {
-      title: "HistoryScreen",
+      title: "CountryScreen",
     },
   },
   {

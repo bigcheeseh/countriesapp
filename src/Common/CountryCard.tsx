@@ -4,7 +4,9 @@ import { Animated, GestureResponderEvent, StyleSheet, Text, TouchableOpacity, Vi
 import Star from "src/Icons/Star";
 import FlagImage from "./FlagImage";
 import { Country} from "src/Api"
-
+import {
+  useNavigation,
+} from "@react-navigation/native";
 
 interface Props {
   style: ViewStyle;
@@ -17,6 +19,7 @@ interface Props {
 type TranslationsKeys = keyof Country["translations"]
 
 const EventCard = (props: Props) => {
+  const navigation = useNavigation();
   const [mapHeight] = React.useState(new Animated.Value(0));
   const [isActive, setIsActive] = React.useState(false);
   const { style } = props;
@@ -45,7 +48,9 @@ const EventCard = (props: Props) => {
     return (
       <View style={style}>
             <View style={styles.textContainer}>
-              <Text>{props.country.name}</Text>
+              <TouchableOpacity onPress={() => navigation.navigate("Country", props.country)}>
+                <Text style={{ fontSize: 16, fontWeight: "bold"}}>{props.country.name}</Text>
+              </TouchableOpacity>
               <Text>{props.country.nativeName}</Text>
               <Text>{props.country.capital}</Text>
               <Text>{props.country.timezones}</Text>
@@ -53,7 +58,7 @@ const EventCard = (props: Props) => {
               <Text style={{flexDirection: "row"}}>{props.country.languages.map((language) => <Text key={language.name} style={{ marginRight: 4 }}>{language.name}</Text>)}</Text>
               <Text style={{flexDirection: "row"}}>{Object.keys(props.country.translations).map((key) => <Text key={key} style={{ marginRight: 4 }}>{props.country.translations[key as TranslationsKeys]}</Text>)}</Text>
             </View>
-          <View style={{alignItems: "flex-end", justifyContent: "space-between", flex: 1}}>
+          <View style={{alignItems: "flex-end", justifyContent: "flex-start", flex: 1}}>
             <TouchableOpacity onPress={props.onStarPress}>
               <Star color={props.isFavorite ? "#ffd27d" : "#fff"}/>
             </TouchableOpacity>

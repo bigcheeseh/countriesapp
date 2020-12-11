@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { FlatList, ListRenderItemInfo, StyleSheet, Text } from "react-native";
 import Api, { Country } from "src/Api";
 import CountryCard from "src/Common/CountryCard";
-import { getShadowStyle, themeColor } from "src/Common/styles";
+import { getShadowStyle } from "src/Common/styles";
 
 
 const getKey = (item: Country) => String(item.name);
