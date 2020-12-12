@@ -1,24 +1,24 @@
-import React, { useContext } from "react";
-import { Text, StyleSheet, GestureResponderEvent } from 'react-native';
-import CountryCard from "src/Common/CountryCard"
 import {
-  useRoute,
   RouteProp,
+  useRoute,
 } from "@react-navigation/native";
+import React, { useContext } from "react";
+import { GestureResponderEvent, StyleSheet, Text } from "react-native";
+import { Country} from "src/Api";
+import CountryCard from "src/Common/CountryCard";
 import { getShadowStyle } from "src/Common/styles";
-import { Country} from "src/Api"
-import { FavoriteCountries } from "src/Context/FavoriteCountries"
-import TextParagraph from "src/Common/TextParagraph"
+import TextParagraph from "src/Common/TextParagraph";
+import { FavoriteCountries } from "src/Context/FavoriteCountries";
 
 interface RouteParams extends Country {
   isFavorite: boolean;
   onStarPress?(e: GestureResponderEvent): void;
 }
 
-type TranslationsKeys = keyof Country["translations"]
+type TranslationsKeys = keyof Country["translations"];
 
 const CountryScreen = () => {
-  const route = useRoute<RouteProp<{ params: RouteParams }, "params">>()
+  const route = useRoute<RouteProp<{ params: RouteParams }, "params">>();
   const favorite = useContext(FavoriteCountries);
 
 
@@ -41,7 +41,7 @@ const CountryScreen = () => {
                   )}
                 </TextParagraph>
                </>
-          </CountryCard>)
+          </CountryCard>);
 };
 
 const styles = StyleSheet.create({

@@ -1,7 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import Countries from "src/Features/Countries";
-import History from "src/Features/Country";
+import Country from "src/Features/Country";
 import FavoriteCountries from "src/Features/FavoriteCountries";
 
 const screens = [

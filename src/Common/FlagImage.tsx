@@ -5,7 +5,7 @@ import {
   View,
 } from "react-native";
 import Flag from "react-native-flags";
-import { SvgXml } from "react-native-svg"
+import { SvgXml } from "react-native-svg";
 
 export interface OwnProps {
   countryCode: string;
@@ -23,24 +23,24 @@ const FlagImage = (props: Props) => {
   const [imageViewBox, setImageViewBox] = React.useState<string>();
   React.useEffect(() => {
     const setSvgImageXml = async() => {
-      if(!countriesWithUniqueFlag.includes(props.countryCode)) return;
-      const image = await fetch(props.logoUri!)
+      if(!countriesWithUniqueFlag.includes(props.countryCode)) { return; }
+      const image = await fetch(props.logoUri);
       const imageText = await image.text();
       const viewBoxMatch = imageText.match(/viewBox=\"(.*?)\"/);
       const viewBox = viewBoxMatch ? viewBoxMatch[1] : null;
       const width = imageText.match(/width=\"(.*?)\"/)![1];
       const height = imageText.match(/height=\"(.*?)\"/)![1];
-      setImageViewBox(viewBox ? viewBox : `0 0 ${width} ${height}`)
-      setImageXml(imageText)
-    } 
-    setSvgImageXml()
+      setImageViewBox(viewBox ? viewBox : `0 0 ${width} ${height}`);
+      setImageXml(imageText);
+    }; 
+    setSvgImageXml();
   }, [props.logoUri]);
   return (
     <View style={styles.container}>
-      {imageXml ? <SvgXml xml={imageXml}  width="100%" height="100" viewBox={imageViewBox}></SvgXml> : <Flag size={64} type="flat" code={props.countryCode}/>}
+      {imageXml ?  <SvgXml xml={imageXml}  width="100%" height="100" viewBox={imageViewBox}/> : <Flag size={64} type="flat" code={props.countryCode}/>}
     </View>
   );
-  }
+  };
 
 
 const styles = StyleSheet.create({

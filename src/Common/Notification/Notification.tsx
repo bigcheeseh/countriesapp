@@ -1,7 +1,7 @@
-import Subscriber from "src/Subscriber";
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet } from 'react-native';
-import { getShadowStyle, backgroundColor, errorColor } from "src/Common/styles";
+import { StyleSheet, View } from "react-native";
+import { backgroundColor, errorColor, getShadowStyle } from "src/Common/styles";
+import Subscriber from "src/Subscriber";
 
 interface Props {
   children: JSX.Element | JSX.Element[] | null;
@@ -27,8 +27,8 @@ const Notification = (props: Props) => {
       {notification ? <View style={styles.notificationContainer}>{notification}</View> : null}
       {props.children}
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -46,6 +46,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     ...getShadowStyle(4),
   }
-})
+});
 
 export default Notification;

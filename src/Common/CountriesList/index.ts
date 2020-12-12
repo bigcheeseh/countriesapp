@@ -1,2 +1,2 @@
-export { AllCountriesList } from "./AllCountriesList"
-export { FavoriteCountriesList } from "./FavoriteCountriesList"
+export { AllCountriesList } from "./AllCountriesList";
+export { FavoriteCountriesList } from "./FavoriteCountriesList";

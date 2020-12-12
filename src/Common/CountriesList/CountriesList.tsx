@@ -1,17 +1,17 @@
 
-import React, { useEffect, useMemo, useState, useContext } from "react";
-import { FlatList, ListRenderItemInfo, StyleSheet, ActivityIndicator } from "react-native";
+import React, { useContext, useEffect, useMemo, useState } from "react";
+import { ActivityIndicator, FlatList, ListRenderItemInfo, StyleSheet } from "react-native";
 import Api, { Country } from "src/Api";
 import CountryCard from "src/Common/CountryCard";
+import SearchBar from "src/Common/SearchBar";
 import { getShadowStyle } from "src/Common/styles";
 import { FavoriteCountries } from "src/Context/FavoriteCountries";
-import SearchBar from "src/Common/SearchBar"
 
 
 const getKey = (item: Country) => String(item.alpha3Code);
 
 interface Props {
-  isFavoriteCountriesList?: boolean
+  isFavoriteCountriesList?: boolean;
 }
 
 const LIMIT = 10;
@@ -19,7 +19,7 @@ const LIMIT = 10;
 const Countries = (props: Props) => {
   const [countries, setCountries] = useState<Country[]>([]);
   const [searchString, setSearchString] = useState<string | undefined>();
-  const [limit, setLimit] = useState(LIMIT);
+  const [countriesLimit, setCountriesLimit] = useState(LIMIT);
   const [countriesToRender, setCountriesToRender] = useState<Country[]>([]);
 
   const favorite = useContext(FavoriteCountries);
@@ -38,22 +38,22 @@ const Countries = (props: Props) => {
       const filteredCountries: Country[] = [];
       let index = 0;
       countries.forEach((country) => {
-        const isFavorite = favorite.countryCodes.includes(country.alpha2Code)
-        if(props.isFavoriteCountriesList && !isFavorite) return;
-        if(searchString && searchString.length > 1 && !country.name.toLowerCase().includes(searchString.toLowerCase())) return;
-        if(index >= limit) return;
+        const isFavorite = favorite.countryCodes.includes(country.alpha2Code);
+        if(props.isFavoriteCountriesList && !isFavorite) { return; }
+        if(searchString && searchString.length > 1 && !country.name.toLowerCase().includes(searchString.toLowerCase())) { return; }
+        if(index >= countriesLimit) { return; }
         index++;
-        filteredCountries.push(country)
+        filteredCountries.push(country);
       });
       setCountriesToRender(filteredCountries);
     },
-    [countries, favorite.countryCodes, searchString, limit],
+    [countries, favorite.countryCodes, searchString, countriesLimit],
   );
 
 
   const renderCountry = (listItem: ListRenderItemInfo<Country>) => {
     const country = listItem.item;
-    const isFavorite = favorite.countryCodes.includes(country.alpha2Code)
+    const isFavorite = favorite.countryCodes.includes(country.alpha2Code);
     return (
       <CountryCard
         key={country.alpha3Code}
@@ -65,7 +65,7 @@ const Countries = (props: Props) => {
     );
   };
 
-  const handleSetLimit = () => setLimit((limit: number) => limit+= LIMIT)
+  const handleSetLimit = () => setCountriesLimit((currentLimit: number) => currentLimit + LIMIT);
 
 
   const CountriesList = useMemo(
@@ -81,13 +81,13 @@ const Countries = (props: Props) => {
           showsVerticalScrollIndicator={false}
           onEndReached={handleSetLimit}
         />
-    )},
+    );},
     [countriesToRender],
   );
 
 
   if(!countriesToRender) {
-    return <ActivityIndicator />
+    return <ActivityIndicator />;
   }
 
   return (

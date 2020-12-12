@@ -45,4 +45,4 @@ export type Country = {
       otherNames: string[]
   }[],
   cioc: string
-}
+};

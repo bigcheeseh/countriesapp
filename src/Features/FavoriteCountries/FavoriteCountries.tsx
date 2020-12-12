@@ -1,5 +1,5 @@
 import React from "react";
-import { FavoriteCountriesList} from "src/Common/CountriesList"
+import { FavoriteCountriesList} from "src/Common/CountriesList";
 
 const FavoriteCountries = () => {
   return <FavoriteCountriesList />;

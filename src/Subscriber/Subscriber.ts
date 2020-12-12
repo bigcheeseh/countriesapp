@@ -13,13 +13,13 @@ interface ISubscriber {
 
 class Subscriber implements ISubscriber {
   private onShowNotification?: onShowNotification;
-  private onHideNotifications: onHideNotification[] = [];
+  private onHideNotification?: onHideNotification;
 
   public subscribeShowNotification = (fn: onShowNotification) => {
     this.onShowNotification = fn;
   };
   public subscribeHideNotification = (fn: onHideNotification) => {
-    this.onHideNotifications = [...this.onHideNotifications, fn];
+    this.onHideNotification = fn;
   };
 
   public showNotification = (e: React.ReactNode) => {
@@ -29,10 +29,8 @@ class Subscriber implements ISubscriber {
   };
 
   public hideNotification = () => {
-    if (this.onHideNotifications.length) {
-      this.onHideNotifications.map((onHideNotification) =>
-        onHideNotification(),
-      );
+    if (this.onHideNotification) {
+      this.onHideNotification();
     }
   };
 }

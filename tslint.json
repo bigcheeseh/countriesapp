@@ -5,6 +5,7 @@
   },
   "rules": {
     "no-floating-promises": false,
+    "no-string-based-set-timeout": false,
     "import-name": [
       true,
       null

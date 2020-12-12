@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Path, Svg, G, Circle } from "react-native-svg";
+import { Circle, G, Path, Svg } from "react-native-svg";
 
 export default () => (
   <Svg  width="32" height="32" viewBox="0 0 74 74" >
@@ -21,4 +21,4 @@ export default () => (
         <Path d="m21.812 50.7a.661.661 0 0 1 -.21-.035 23.606 23.606 0 0 1 -7.602-4.294.65.65 0 1 1 .837-.994 22.317 22.317 0 0 0 7.188 4.058.65.65 0 0 1 -.21 1.266z" fill="#fff"/>
         <Path d="m11.565 43.629a.648.648 0 0 1 -.505-.241c-.187-.23-.369-.464-.551-.7a.65.65 0 1 1 1.027-.8c.176.227.352.453.533.677a.65.65 0 0 1 -.5 1.059z" fill="#fff"/>
       </G>
-  </Svg>)
+  </Svg>);

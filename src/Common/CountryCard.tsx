@@ -1,14 +1,14 @@
 
-import React from "react";
-import { GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from "react-native";
-import Star from "src/Icons/Star";
-import FlagImage from "./FlagImage";
-import { Country } from "src/Api";
-import TextParagraph from "src/Common/TextParagraph"
 import {
   useNavigation,
 } from "@react-navigation/native";
-import { favoriteColor, backgroundColor } from "src/Common/styles"
+import React from "react";
+import { GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from "react-native";
+import { Country } from "src/Api";
+import { backgroundColor, favoriteColor } from "src/Common/styles";
+import TextParagraph from "src/Common/TextParagraph";
+import Star from "src/Icons/Star";
+import FlagImage from "./FlagImage";
 
 interface Props {
   style: ViewStyle;
@@ -21,7 +21,7 @@ interface Props {
 const EventCard = (props: Props) => {
   const navigation = useNavigation();
   const { style } = props;
-  const handleNavigate = () => navigation.navigate("Country", { ...props.country })
+  const handleNavigate = () => navigation.navigate("Country", { ...props.country });
   const Card = React.useMemo(() => {
     return (
       <View style={style}>

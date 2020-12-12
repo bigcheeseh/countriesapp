@@ -26,7 +26,7 @@ const NavigationButton = (props: Props) => {
         <Text style={[styles.label, { color: textColor }]}>{label}</Text>
       </TouchableOpacity>
     );
-  }
+  };
 
 
 const styles = StyleSheet.create({
