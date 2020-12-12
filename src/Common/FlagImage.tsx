@@ -15,6 +15,7 @@ export interface OwnProps {
 
 interface Props extends OwnProps {}
 
+// react-native-flags lib doesn't have images for this country codes but get most of the flag images with this lib more efficient
 const countriesWithUniqueFlag = ["BQ", "BV", "IO", "UM", "GF", "GP", "HM", "XK", "RE", "PM", "SX", "SJ"];
 
 const FlagImage = (props: Props) => {
@@ -30,7 +31,6 @@ const FlagImage = (props: Props) => {
       const width = imageText.match(/width=\"(.*?)\"/)![1];
       const height = imageText.match(/height=\"(.*?)\"/)![1];
       setImageViewBox(viewBox ? viewBox : `0 0 ${width} ${height}`)
-      console.log(imageText)
       setImageXml(imageText)
     } 
     setSvgImageXml()

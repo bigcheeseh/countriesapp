@@ -12,7 +12,6 @@ class Api {
   public getCountries = async () => {
     const countries = await fetch(`${this.url}/all`);
     const countriesData: Country[] = await countries.json();
-    console.log(countriesData[0], "getcountriesdata")
     return countriesData;
   };
 
@@ -20,4 +19,4 @@ class Api {
 
 
 
-export default new Api({url: "https://restcountries.eu/rest/v2"});
+export default new Api({ url: "https://restcountries.eu/rest/v2" });
