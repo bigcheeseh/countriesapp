@@ -1,46 +1,32 @@
 import Subscriber from "src/Subscriber";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet } from 'react-native';
 import { getShadowStyle, backgroundColor, errorColor } from "src/Common/styles";
 
 interface Props {
-
-  onHideNotification?(): void;
+  children: JSX.Element | JSX.Element[] | null;
 }
 
-interface State {
-  isVisible: boolean;
-  notification?: React.ReactNode;
-}
+const Notification = (props: Props) => {
+  const [notification, setNotification] = useState<React.ReactNode>();
+  useEffect(() => {
+    Subscriber.subscribeShowNotification(showNotification);
+    Subscriber.subscribeHideNotification(hideNotification);
+  }, []);
 
-class Notification extends React.PureComponent<Props, State> {
-  public state: State = {
-    isVisible: false,
-  };
-  public componentDidMount = () => {
-    Subscriber.subscribeShowNotification(this.showNotification);
-    Subscriber.subscribeHideNotification(this.hideNotification);
+  const showNotification = (e: React.ReactNode) => {
+    setNotification(e);
   };
 
-  public render() {
-    return (
-      <>
-        {this.state.notification ? <View style={styles.container}>{this.state.notification}</View> : null}
-        {this.props.children}
-      </>
-    )
-  }
-
-  private showNotification = (e: React.ReactNode) => {
-    this.setState({ notification: e, isVisible: true });
+  const hideNotification = () => {
+    setNotification(undefined);
   };
 
-  private hideNotification = () => {
-    this.setState(
-      { notification: undefined, isVisible: false },
-      this.props.onHideNotification,
-    );
-  };
+  return (<>
+      {notification ? <View style={styles.container}>{notification}</View> : null}
+      {props.children}
+    </>
+  )
 }
 
 const styles = StyleSheet.create({
