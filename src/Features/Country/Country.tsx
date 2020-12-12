@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, GestureResponderEvent } from 'react-native';
 import CountryCard from "src/Common/CountryCard"
 import {
@@ -7,6 +7,7 @@ import {
 } from "@react-navigation/native";
 import { getShadowStyle } from "src/Common/styles";
 import { Country} from "src/Api"
+import { FavoriteCountries } from "src/Context/FavoriteCountries"
 
 interface RouteParams extends Country {
   isFavorite: boolean;
@@ -15,10 +16,14 @@ interface RouteParams extends Country {
 
 const CountryScreen = () => {
   const route = useRoute<RouteProp<{ params: RouteParams }, "params">>()
-  return <CountryCard style={styles.cardContainer} 
-          country={route.params} 
-          isFavorite={route.params.isFavorite} 
-          onStarPress={route.params.onStarPress} />;
+  const favorite = useContext(FavoriteCountries);
+
+
+  return <CountryCard 
+            style={styles.cardContainer} 
+            country={route.params} 
+            isFavorite={favorite.countryCodes.includes(route.params.alpha2Code)} 
+            onStarPress={favorite.setCountryCode!(route.params.alpha2Code)} />;
 };
 
 const styles = StyleSheet.create({
