@@ -13,7 +13,7 @@ const screens = [
     },
   },
   {
-    screen: History,
+    screen: Country,
     name: "Country",
     navigationOptions: {
       title: "CountryScreen",

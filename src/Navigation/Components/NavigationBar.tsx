@@ -41,20 +41,20 @@ const BottomNavigationBar = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-        <>
-          <NavigationButton
-            handlePress={navigateToScheduleScreen}
-            isActive={isActive("Countries")}
-            label="Countries"
-            Icon={MapMarker}
-          />
-          <NavigationButton
-            handlePress={navigateToSettingsScreen}
-            isActive={isActive("Favorites")}
-            label="Favorites"
-            Icon={Star}
-          />
-        </>
+      <>
+        <NavigationButton
+          handlePress={navigateToScheduleScreen}
+          isActive={isActive("Countries")}
+          label="Countries"
+          Icon={MapMarker}
+        />
+        <NavigationButton
+          handlePress={navigateToSettingsScreen}
+          isActive={isActive("Favorites")}
+          label="Favorites"
+          Icon={Star}
+        />
+      </>
     </SafeAreaView>
   );
 };

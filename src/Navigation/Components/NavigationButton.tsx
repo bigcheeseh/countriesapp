@@ -16,18 +16,17 @@ interface Props {
 }
 
 const NavigationButton = (props: Props) => {
-    const { handlePress, label, isActive, Icon } = props;
-    const textColor = isActive ? themeColor : unActiveColor;
-    return (
-      <TouchableOpacity onPress={handlePress} style={styles.buttonContainer}>
-        <View style={styles.iconContainer}>
-          {Icon ? <Icon width={16} height={16} color={textColor} /> : null}
-        </View>
-        <Text style={[styles.label, { color: textColor }]}>{label}</Text>
-      </TouchableOpacity>
-    );
-  };
-
+  const { handlePress, label, isActive, Icon } = props;
+  const textColor = isActive ? themeColor : unActiveColor;
+  return (
+    <TouchableOpacity onPress={handlePress} style={styles.buttonContainer}>
+      <View style={styles.iconContainer}>
+        {Icon ? <Icon width={16} height={16} color={textColor} /> : null}
+      </View>
+      <Text style={[styles.label, { color: textColor }]}>{label}</Text>
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   buttonContainer: {
@@ -35,7 +34,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 8,
   },
-  iconContainer: {height: 24},
+  iconContainer: { height: 24 },
   label: {
     marginTop: 8,
     minWidth: 80,

@@ -1,12 +1,15 @@
-
 import React, { useContext, useEffect, useMemo, useState } from "react";
-import { ActivityIndicator, FlatList, ListRenderItemInfo, StyleSheet } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  ListRenderItemInfo,
+  StyleSheet,
+} from "react-native";
 import Api, { Country } from "src/Api";
 import CountryCard from "src/Common/CountryCard";
 import SearchBar from "src/Common/SearchBar";
 import { getShadowStyle } from "src/Common/styles";
 import { FavoriteCountries } from "src/Context/FavoriteCountries";
-
 
 const getKey = (item: Country) => String(item.alpha3Code);
 
@@ -31,25 +34,30 @@ const Countries = (props: Props) => {
     setCountriesAsync();
   }, []);
 
-
-  useEffect(
-    () => {
-      setCountriesToRender([]);
-      const filteredCountries: Country[] = [];
-      let index = 0;
-      countries.forEach((country) => {
-        const isFavorite = favorite.countryCodes.includes(country.alpha2Code);
-        if(props.isFavoriteCountriesList && !isFavorite) { return; }
-        if(searchString && searchString.length > 1 && !country.name.toLowerCase().includes(searchString.toLowerCase())) { return; }
-        if(index >= countriesLimit) { return; }
-        index++;
-        filteredCountries.push(country);
-      });
-      setCountriesToRender(filteredCountries);
-    },
-    [countries, favorite.countryCodes, searchString, countriesLimit],
-  );
-
+  useEffect(() => {
+    setCountriesToRender([]);
+    const filteredCountries: Country[] = [];
+    let index = 0;
+    countries.forEach((country) => {
+      const isFavorite = favorite.countryCodes.includes(country.alpha2Code);
+      if (props.isFavoriteCountriesList && !isFavorite) {
+        return;
+      }
+      if (
+        searchString &&
+        searchString.length > 1 &&
+        !country.name.toLowerCase().includes(searchString.toLowerCase())
+      ) {
+        return;
+      }
+      if (index >= countriesLimit) {
+        return;
+      }
+      index++;
+      filteredCountries.push(country);
+    });
+    setCountriesToRender(filteredCountries);
+  }, [countries, favorite.countryCodes, searchString, countriesLimit]);
 
   const renderCountry = (listItem: ListRenderItemInfo<Country>) => {
     const country = listItem.item;
@@ -65,35 +73,34 @@ const Countries = (props: Props) => {
     );
   };
 
-  const handleSetLimit = () => setCountriesLimit((currentLimit: number) => currentLimit + LIMIT);
+  const handleSetLimit = () =>
+    setCountriesLimit((currentLimit: number) => currentLimit + LIMIT);
 
+  const CountriesList = useMemo(() => {
+    return (
+      <FlatList
+        stickyHeaderIndices={[0]}
+        style={styles.container}
+        ListHeaderComponent={
+          <SearchBar
+            searchString={searchString}
+            setSearchString={setSearchString}
+          />
+        }
+        data={countriesToRender}
+        keyExtractor={getKey}
+        renderItem={renderCountry}
+        showsVerticalScrollIndicator={false}
+        onEndReached={handleSetLimit}
+      />
+    );
+  }, [countriesToRender]);
 
-  const CountriesList = useMemo(
-    () => {
-      return(
-        <FlatList
-          stickyHeaderIndices={[0]}
-          style={styles.container}
-          ListHeaderComponent={<SearchBar searchString={searchString} setSearchString={setSearchString}/>}
-          data={countriesToRender}
-          keyExtractor={getKey}
-          renderItem={renderCountry}
-          showsVerticalScrollIndicator={false}
-          onEndReached={handleSetLimit}
-        />
-    );},
-    [countriesToRender],
-  );
-
-
-  if(!countriesToRender) {
+  if (!countriesToRender) {
     return <ActivityIndicator />;
   }
 
-  return (
-    <>
-      {CountriesList}
-    </>);
+  return <>{CountriesList}</>;
 };
 
 const styles = StyleSheet.create({

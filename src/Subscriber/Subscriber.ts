@@ -1,6 +1,5 @@
 import React from "react";
 
-
 type onShowNotification = (e: React.ReactNode) => void;
 type onHideNotification = () => void;
 

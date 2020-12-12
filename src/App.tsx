@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     flexDirection: "column",
-  }
+  },
 });
 
 export default App;
