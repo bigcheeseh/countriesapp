@@ -18,16 +18,19 @@ const Countries = (props: Props) => {
   const [searchString, setSearchString] = useState<string | undefined>();
   const [limit, setLimit] = useState(10);
   const [countriesToRender, setCountriesToRender] = useState<Country[]>([]);
+  const [isFetching, setIsFetching] = useState(false);
 
   const favorite = useContext(FavoriteCountries);
-
-  useEffect(() => {
+  const setCountriesR = () => {
+    setIsFetching(true);
     const setCountriesAsync = async () => {
       const newCountries = await Api.getCountries();
-      setCountries(newCountries); 
+      setCountries(newCountries);
+      setIsFetching(false);
     };
     setCountriesAsync();;
-  }, []);
+  }
+  useEffect(setCountriesR, []);
 
 
   useEffect(
@@ -64,6 +67,8 @@ const Countries = (props: Props) => {
     () => {
       return(
         <FlatList
+          onRefresh={setCountriesR}
+          refreshing={isFetching}
           stickyHeaderIndices={[0]}
           style={styles.container}
           ListHeaderComponent={(
@@ -77,7 +82,7 @@ const Countries = (props: Props) => {
           renderItem={renderCountry}
           showsVerticalScrollIndicator={false}
           initialNumToRender={3}
-          onEndReachedThreshold={0.5}
+          // onEndReachedThreshold={1}
           onEndReached={() => setLimit((limit: number) => limit+= 10)}
         />
     )},
