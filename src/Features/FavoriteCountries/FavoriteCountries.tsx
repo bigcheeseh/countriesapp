@@ -1,8 +1,8 @@
 import React from "react";
-import Countries from "src/Features/Countries"
+import { FavoriteCountriesList} from "src/Common/CountriesList"
 
 const FavoriteCountries = () => {
-  return <Countries isFavoriteCountriesList />;
+  return <FavoriteCountriesList />;
 };
 
 export default FavoriteCountries;
