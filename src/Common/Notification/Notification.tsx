@@ -22,15 +22,30 @@ const Notification = (props: Props) => {
     setNotification(undefined);
   };
 
-  return (<>
-      {notification ? <View style={styles.container}>{notification}</View> : null}
+  return (
+    <View style={styles.container}>
+      {notification ? <View style={styles.notificationContainer}>{notification}</View> : null}
       {props.children}
-    </>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: { margin: 16, backgroundColor, borderRadius: 8, borderWidth: 1, borderColor: errorColor, ...getShadowStyle(4)}
+  container: {
+    flex: 1,
+    backgroundColor,
+  },
+  notificationContainer: { 
+    margin: 16, 
+    backgroundColor, 
+    borderRadius: 8, 
+    borderWidth: 1, 
+    borderColor: errorColor,
+    padding: 8,
+    alignItems: "center",
+    flexDirection: "row",
+    ...getShadowStyle(4),
+  }
 })
 
 export default Notification;

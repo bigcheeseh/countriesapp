@@ -32,10 +32,10 @@ class Api {
       return res;
     } catch(e) {
       showNotification(
-        <Text style={styles.errorContainer}>
+        <>
           <Text>reconnecting</Text>
           <ActivityIndicator style={styles.spinner} color={errorColor} />
-        </Text>
+        </>
       )
       await new Promise((resolve) => setTimeout(resolve, 5000));
       
@@ -47,7 +47,7 @@ class Api {
 
 const styles = StyleSheet.create({
   errorContainer: { padding: 8 },
-  spinner: { width: 50, height: 0},
+  spinner: {marginHorizontal: 4 },
 })
 
 

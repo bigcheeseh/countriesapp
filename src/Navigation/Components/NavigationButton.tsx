@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { themeColor } from "src/Common/styles";
+import { themeColor, unActiveColor } from "src/Common/styles";
 
 interface P {
   width: number;
@@ -12,17 +12,15 @@ interface Props {
   label: string;
   isActive: boolean;
   Icon?: React.ComponentType<P>;
-  children?: React.ReactChild;
   handlePress(): void;
-  onPress?(): void;
 }
 
 const NavigationButton = (props: Props) => {
     const { handlePress, label, isActive, Icon } = props;
-    const textColor = isActive ? themeColor : "#B4B8B4";
+    const textColor = isActive ? themeColor : unActiveColor;
     return (
       <TouchableOpacity onPress={handlePress} style={styles.buttonContainer}>
-        <View style={{height: 24}}>
+        <View style={styles.iconContainer}>
           {Icon ? <Icon width={16} height={16} color={textColor} /> : null}
         </View>
         <Text style={[styles.label, { color: textColor }]}>{label}</Text>
@@ -37,6 +35,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 8,
   },
+  iconContainer: {height: 24},
   label: {
     marginTop: 8,
     minWidth: 80,
