@@ -17,9 +17,8 @@ interface Props {
   onPress?(): void;
 }
 
-class NavigationButton extends React.PureComponent<Props> {
-  public render() {
-    const { handlePress, label, isActive, Icon } = this.props;
+const NavigationButton = (props: Props) => {
+    const { handlePress, label, isActive, Icon } = props;
     const textColor = isActive ? themeColor : "#B4B8B4";
     return (
       <TouchableOpacity onPress={handlePress} style={styles.buttonContainer}>
@@ -30,7 +29,7 @@ class NavigationButton extends React.PureComponent<Props> {
       </TouchableOpacity>
     );
   }
-}
+
 
 const styles = StyleSheet.create({
   buttonContainer: {

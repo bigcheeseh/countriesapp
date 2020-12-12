@@ -1,7 +1,7 @@
-import Subscriber, { NotificationEvent } from "src/Subscriber";
+import Subscriber from "src/Subscriber";
 import React from "react";
-import { View } from 'react-native';
-import { getShadowStyle } from "src/Common/styles";
+import { View, StyleSheet } from 'react-native';
+import { getShadowStyle, backgroundColor, errorColor } from "src/Common/styles";
 
 interface Props {
 
@@ -10,40 +10,41 @@ interface Props {
 
 interface State {
   isVisible: boolean;
-  notification: NotificationEvent;
+  notification?: React.ReactNode;
 }
 
 class Notification extends React.PureComponent<Props, State> {
-
-  public initialNotificationEvent = {
-    text: "",
-  };
   public state: State = {
-    notification: this.initialNotificationEvent,
     isVisible: false,
   };
   public componentDidMount = () => {
     Subscriber.subscribeShowNotification(this.showNotification);
     Subscriber.subscribeHideNotification(this.hideNotification);
   };
-  public render() {
-    if (!this.state.isVisible) {
-      return null;
-    }
 
-    return <View style={{ margin: 16, backgroundColor: "#fff", borderRadius: 8, borderWidth: 1, borderColor: "red", ...getShadowStyle(4)}}>{this.state.notification.text}</View>
+  public render() {
+    return (
+      <>
+        {this.state.notification ? <View style={styles.container}>{this.state.notification}</View> : null}
+        {this.props.children}
+      </>
+    )
   }
 
-  private showNotification = (e: NotificationEvent) => {
+  private showNotification = (e: React.ReactNode) => {
     this.setState({ notification: e, isVisible: true });
   };
 
   private hideNotification = () => {
     this.setState(
-      { notification: this.initialNotificationEvent, isVisible: false },
+      { notification: undefined, isVisible: false },
       this.props.onHideNotification,
     );
   };
 }
+
+const styles = StyleSheet.create({
+  container: { margin: 16, backgroundColor, borderRadius: 8, borderWidth: 1, borderColor: errorColor, ...getShadowStyle(4)}
+})
 
 export default Notification;

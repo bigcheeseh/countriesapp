@@ -4,7 +4,5 @@ import React from "react";
 export const showNotification = (
   message: React.ReactNode,
 ) => {
-  Subscriber.showNotification({
-    text: message,
-  });
+  Subscriber.showNotification(message);
 };

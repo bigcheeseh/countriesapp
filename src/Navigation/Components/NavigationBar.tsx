@@ -5,9 +5,10 @@ import {
 } from "@react-navigation/native";
 import * as React from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
-import House from "src/Icons/House";
+import Countries from "src/Icons/MapMarker";
 import Star from "src/Icons/Star";
 import NavigationButton from "./NavigationButton";
+import { getShadowStyle } from "src/Common/styles"
 
 const BottomNavigationBar = () => {
   const navigation = useNavigation();
@@ -45,7 +46,7 @@ const BottomNavigationBar = () => {
             handlePress={navigateToScheduleScreen}
             isActive={isActive("Countries")}
             label="Countries"
-            Icon={House}
+            Icon={Countries}
           />
           <NavigationButton
             handlePress={navigateToSettingsScreen}
@@ -64,6 +65,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "flex-start",
     backgroundColor: "#FFF",
+    ...getShadowStyle(4),
   },
 });
 

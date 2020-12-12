@@ -9,8 +9,8 @@ export default function mapPin({
   return (
     
     <Svg
-      height={40}
-      width={40}
+      height={32}
+      width={32}
       viewBox="0 0 15 18">
       <G fill="none" fillRule="evenodd">
         <Path

@@ -37,7 +37,7 @@ const FlagImage = (props: Props) => {
   }, [props.logoUri]);
   return (
     <View style={styles.container}>
-      {imageXml ? <SvgXml xml={imageXml}  width="100%" height="100" viewBox={imageViewBox} /> : <Flag size={64} type="flat" code={props.countryCode}/>}
+      {imageXml ? <SvgXml xml={imageXml}  width="100%" height="100" viewBox={imageViewBox}></SvgXml> : <Flag size={64} type="flat" code={props.countryCode}/>}
     </View>
   );
   }
@@ -45,8 +45,6 @@ const FlagImage = (props: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    justifyContent: "center",
     margin: 2,
     marginHorizontal: 16,
     width: 64,

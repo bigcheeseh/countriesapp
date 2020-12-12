@@ -1,15 +1,12 @@
 import React from "react";
 
-export type NotificationEvent = {
-  text: React.ReactNode;
-};
 
-type onShowNotification = (e: NotificationEvent) => void;
+type onShowNotification = (e: React.ReactNode) => void;
 type onHideNotification = () => void;
 
 interface ISubscriber {
   subscribeShowNotification(fn: onShowNotification): void;
-  showNotification(e: NotificationEvent): void;
+  showNotification(e: React.ReactNode): void;
   subscribeHideNotification(fn: onHideNotification): void;
   hideNotification(): void;
 }
@@ -25,7 +22,7 @@ class Subscriber implements ISubscriber {
     this.onHideNotifications = [...this.onHideNotifications, fn];
   };
 
-  public showNotification = (e: NotificationEvent) => {
+  public showNotification = (e: React.ReactNode) => {
     if (this.onShowNotification) {
       this.onShowNotification(e);
     }

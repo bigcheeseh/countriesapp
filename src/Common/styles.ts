@@ -16,4 +16,6 @@ export const getShadowStyle =  (
 };
 
 export const themeColor = "#009ACD";
-
+export const favoriteColor = "#ffd27d"; 
+export const backgroundColor = "#fff";
+export const errorColor = "#ff3333"

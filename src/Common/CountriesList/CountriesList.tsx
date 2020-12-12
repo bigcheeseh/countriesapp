@@ -1,56 +1,58 @@
 
 import React, { useEffect, useMemo, useState, useContext } from "react";
-import { FlatList, ListRenderItemInfo, StyleSheet, ActivityIndicator, TextInput, View, Text } from "react-native";
+import { FlatList, ListRenderItemInfo, StyleSheet, ActivityIndicator } from "react-native";
 import Api, { Country } from "src/Api";
 import CountryCard from "src/Common/CountryCard";
-import { getShadowStyle, themeColor } from "src/Common/styles";
-import { FavoriteCountries } from "src/Context/FavoriteCountries"
+import { getShadowStyle } from "src/Common/styles";
+import { FavoriteCountries } from "src/Context/FavoriteCountries";
+import SearchBar from "src/Common/SearchBar"
 
 
-const getKey = (item: Country) => String(item.name);
+const getKey = (item: Country) => String(item.alpha3Code);
 
 interface Props {
   isFavoriteCountriesList?: boolean
 }
 
+const LIMIT = 10;
+
 const Countries = (props: Props) => {
   const [countries, setCountries] = useState<Country[]>([]);
   const [searchString, setSearchString] = useState<string | undefined>();
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(LIMIT);
   const [countriesToRender, setCountriesToRender] = useState<Country[]>([]);
-  const [isFetching, setIsFetching] = useState(false);
 
   const favorite = useContext(FavoriteCountries);
-  const setCountriesR = () => {
-    setIsFetching(true);
+  useEffect(() => {
     const setCountriesAsync = async () => {
       const newCountries = await Api.getCountries();
       setCountries(newCountries);
-      setIsFetching(false);
     };
-    setCountriesAsync();;
-  }
-  useEffect(setCountriesR, []);
+    setCountriesAsync();
+  }, []);
 
 
   useEffect(
     () => {
       setCountriesToRender([]);
+      const filteredCountries: Country[] = [];
+      let index = 0;
       countries.forEach((country) => {
         const isFavorite = favorite.countryCodes.includes(country.alpha2Code)
         if(props.isFavoriteCountriesList && !isFavorite) return;
         if(searchString && searchString.length > 1 && !country.name.toLowerCase().includes(searchString.toLowerCase())) return;
-        setCountriesToRender((countries) => [...countries, country])
+        if(index >= limit) return;
+        index++;
+        filteredCountries.push(country)
       });
+      setCountriesToRender(filteredCountries);
     },
-    [countries, favorite.countryCodes, searchString],
+    [countries, favorite.countryCodes, searchString, limit],
   );
 
 
   const renderCountry = (listItem: ListRenderItemInfo<Country>) => {
     const country = listItem.item;
-    const index = listItem.index;
-    if(index > limit) return null;
     const isFavorite = favorite.countryCodes.includes(country.alpha2Code)
     return (
       <CountryCard
@@ -63,36 +65,31 @@ const Countries = (props: Props) => {
     );
   };
 
+  const handleSetLimit = () => setLimit((limit: number) => limit+= LIMIT)
+
+
   const CountriesList = useMemo(
     () => {
       return(
         <FlatList
-          onRefresh={setCountriesR}
-          refreshing={isFetching}
           stickyHeaderIndices={[0]}
           style={styles.container}
-          ListHeaderComponent={(
-            <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center", margin: 16, paddingHorizontal: 12, backgroundColor: "#FFF", borderColor: themeColor, borderWidth: 1, borderRadius: 8, ...getShadowStyle(8) }}>
-              <View><Text>Search: </Text></View>
-              <TextInput style={{height: 50, flex: 4, }} onChangeText={setSearchString} value={searchString}/>
-            </View>)}
+          ListHeaderComponent={<SearchBar searchString={searchString} setSearchString={setSearchString}/>}
           data={countriesToRender}
-          extraData={[countries, favorite.countryCodes, searchString, limit]}
           keyExtractor={getKey}
           renderItem={renderCountry}
           showsVerticalScrollIndicator={false}
-          initialNumToRender={3}
-          // onEndReachedThreshold={1}
-          onEndReached={() => setLimit((limit: number) => limit+= 10)}
+          onEndReached={handleSetLimit}
         />
     )},
-    [countriesToRender, limit],
+    [countriesToRender],
   );
 
 
   if(!countriesToRender) {
     return <ActivityIndicator />
   }
+
   return (
     <>
       {CountriesList}
@@ -113,7 +110,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     flex: 1,
     padding: 12,
-    flexDirection: "row",
     ...getShadowStyle(4),
   },
 });
