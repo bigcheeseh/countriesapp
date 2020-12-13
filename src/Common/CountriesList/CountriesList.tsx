@@ -35,7 +35,7 @@ const Countries = (props: Props) => {
   useEffect(() => {
     if(!countries) { return; }
     const filteredCountries: Country[] = [];
-    countries.forEach((country, i) => {
+    countries.forEach((country) => {
       if (props.isFavoriteCountriesList && !favorite.countryCodes.includes(country.alpha2Code)) {
         return;
       }
