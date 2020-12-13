@@ -18,9 +18,7 @@ const CountryScreen = () => {
   return (
     <CountryCard
       style={styles.cardContainer}
-      country={route.params}
-      isFavorite={favorite.countryCodes.includes(route.params.alpha2Code)}
-      onStarPress={favorite.setCountryCode!(route.params.alpha2Code)}>
+      country={route.params}>
       <>
         <TextParagraph label="population">
           <Text>{route.params.population}</Text>

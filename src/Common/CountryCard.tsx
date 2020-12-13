@@ -1,7 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useContext } from "react";
 import {
-  GestureResponderEvent,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -13,20 +12,22 @@ import { backgroundColor, favoriteColor } from "src/Common/styles";
 import TextParagraph from "src/Common/TextParagraph";
 import Star from "src/Icons/Star";
 import FlagImage from "./FlagImage";
+import { FavoriteCountries } from "src/Context/FavoriteCountries";
 
 interface Props {
   style: ViewStyle;
   country: Country;
-  isFavorite?: boolean;
   children?: JSX.Element | JSX.Element[] | null;
-  onStarPress?(e: GestureResponderEvent): void;
 }
 
 const CountryCard = (props: Props) => {
   const navigation = useNavigation();
+  const favorite = useContext(FavoriteCountries);
   const { style } = props;
   const handleNavigate = () =>
     navigation.navigate("Country", { ...props.country });
+
+  const isFavorite = favorite.countryCodes.includes(props.country.alpha2Code);
   const Card = React.useMemo(() => {
     return (
       <View style={style}>
@@ -42,9 +43,9 @@ const CountryCard = (props: Props) => {
               countryCode={props.country.alpha2Code}
               flagUri={props.country.flag}
             />
-            <TouchableOpacity onPress={props.onStarPress}>
+            <TouchableOpacity onPress={favorite.setCountryCode!(props.country.alpha2Code)}>
               <Star
-                color={props.isFavorite ? favoriteColor : backgroundColor}
+                color={isFavorite ? favoriteColor : backgroundColor}
               />
             </TouchableOpacity>
           </View>
@@ -64,7 +65,7 @@ const CountryCard = (props: Props) => {
         </View>
       </View>
     );
-  }, [props.isFavorite]);
+  }, [isFavorite]);
 
   return Card;
 };

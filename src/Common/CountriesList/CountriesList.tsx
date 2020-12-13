@@ -53,14 +53,11 @@ const Countries = (props: Props) => {
 
   const renderCountry = (listItem: ListRenderItemInfo<Country>) => {
     const country = listItem.item;
-    const isFavorite = favorite.countryCodes.includes(country.alpha2Code);
     return (
       <CountryCard
         key={country.alpha3Code}
-        onStarPress={favorite.setCountryCode!(country.alpha2Code)}
         style={styles.cardContainer}
         country={country}
-        isFavorite={isFavorite}
       />
     );
   };
