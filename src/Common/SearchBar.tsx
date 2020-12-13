@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, TextInput, View } from "react-native";
-import { getShadowStyle, themeColor } from "src/Common/styles";
+import { getShadowStyle, themeColor, backgroundColor, themeShadowColor } from "src/Common/styles";
 import Search from "src/Icons/Search";
 
 interface Props {
@@ -28,11 +28,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     margin: 16,
     paddingHorizontal: 12,
-    backgroundColor: "#FFF",
+    backgroundColor,
     borderColor: themeColor,
     borderWidth: 1,
     borderRadius: 8,
-    ...getShadowStyle(8),
+    ...getShadowStyle(4, themeShadowColor),
   },
   textInput: { paddingVertical: 16, flex: 4, paddingHorizontal: 4 },
 });

@@ -1,24 +1,29 @@
 import { Platform } from "react-native";
 
+export const shadowColor = "#CCC";
+export const themeColor = "#009ACD";
+export const themeShadowColor = "#009ACD88"
+export const favoriteColor = "#ffd27d";
+export const backgroundColor = "#fff";
+export const errorColor = "#ff3333";
+export const errorShadowColor = "#ff333388";
+export const unActiveColor = "#B4B8B4";
+
 export const getShadowStyle = (
-  shadowSize: number = 4,
-  shadowColor: string = "#CCC",
+  size: number = 4,
+  color: string = shadowColor,
 ) => {
-  const zIndex = shadowSize * 100;
+  const zIndex = size * 100;
   if (Platform.OS === "android") {
-    return { elevation: shadowSize, zIndex };
+    return { elevation: size, zIndex };
   }
   return {
-    shadowColor,
-    shadowOffset: { width: 0, height: shadowSize / 2 },
+    shadowColor: color,
+    shadowOffset: { width: 0, height: size / 2 },
     shadowOpacity: 0.8,
-    shadowRadius: shadowSize,
+    shadowRadius: size,
     zIndex,
   };
 };
 
-export const themeColor = "#009ACD";
-export const favoriteColor = "#ffd27d";
-export const backgroundColor = "#fff";
-export const errorColor = "#ff3333";
-export const unActiveColor = "#B4B8B4";
+

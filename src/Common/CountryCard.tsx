@@ -31,7 +31,7 @@ const EventCard = (props: Props) => {
     return (
       <View style={style}>
         <View style={styles.headerContainer}>
-          <View>
+          <View style={styles.countryNameContainer}>
             <TouchableOpacity onPress={handleNavigate}>
               <Text style={styles.header}>{props.country.name}</Text>
               <Text style={styles.subHeader}>{props.country.nativeName}</Text>
@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginHorizontal: 4,
   },
+  countryNameContainer: {flexWrap: "wrap", flex: 2},
   flagContainer: { justifyContent: "flex-end", flex: 1, flexDirection: "row" },
   contentContainer: { flexWrap: "wrap", flexDirection: "row" },
   text: { marginRight: 4 },

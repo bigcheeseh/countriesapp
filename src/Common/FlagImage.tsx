@@ -18,13 +18,13 @@ const countriesWithUniqueFlag = [
   "IO",
   "UM",
   "GF",
-  "GP",
   "HM",
   "XK",
   "RE",
   "PM",
   "SX",
   "SJ",
+  "GP"
 ];
 
 const FlagImage = (props: Props) => {
@@ -37,11 +37,9 @@ const FlagImage = (props: Props) => {
       }
       const image = await fetch(props.logoUri);
       const imageText = await image.text();
-      const viewBoxMatch = imageText.match(/viewBox=\"(.*?)\"/);
-      const viewBox = viewBoxMatch ? viewBoxMatch[1] : null;
       const width = imageText.match(/width=\"(.*?)\"/)![1];
       const height = imageText.match(/height=\"(.*?)\"/)![1];
-      setImageViewBox(viewBox ? viewBox : `0 0 ${width} ${height}`);
+      setImageViewBox(`0 0 ${width} ${height}`);
       setImageXml(imageText);
     };
     setSvgImageXml();
@@ -56,7 +54,7 @@ const FlagImage = (props: Props) => {
           viewBox={imageViewBox}
         />
       ) : (
-        <Flag size={64} type="flat" code={props.countryCode} />
+        <Flag size={64} type="shiny" code={props.countryCode} />
       )}
     </View>
   );

@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { GestureResponderEvent, StyleSheet, Text } from "react-native";
 import { Country } from "src/Api";
 import CountryCard from "src/Common/CountryCard";
-import { getShadowStyle } from "src/Common/styles";
+import { getShadowStyle, backgroundColor } from "src/Common/styles";
 import TextParagraph from "src/Common/TextParagraph";
 import { FavoriteCountries } from "src/Context/FavoriteCountries";
 
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     margin: 16,
     borderRadius: 4,
-    backgroundColor: "#FFF",
+    backgroundColor,
     flex: 1,
     padding: 12,
     ...getShadowStyle(),

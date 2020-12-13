@@ -8,7 +8,7 @@ import {
 import Api, { Country } from "src/Api";
 import CountryCard from "src/Common/CountryCard";
 import SearchBar from "src/Common/SearchBar";
-import { getShadowStyle } from "src/Common/styles";
+import { getShadowStyle, backgroundColor } from "src/Common/styles";
 import { FavoriteCountries } from "src/Context/FavoriteCountries";
 
 const getKey = (item: Country) => String(item.alpha3Code);
@@ -17,12 +17,9 @@ interface Props {
   isFavoriteCountriesList?: boolean;
 }
 
-const LIMIT = 10;
-
 const Countries = (props: Props) => {
   const [countries, setCountries] = useState<Country[]>([]);
   const [searchString, setSearchString] = useState<string | undefined>();
-  const [countriesLimit, setCountriesLimit] = useState(LIMIT);
   const [countriesToRender, setCountriesToRender] = useState<Country[]>([]);
 
   const favorite = useContext(FavoriteCountries);
@@ -35,9 +32,7 @@ const Countries = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    setCountriesToRender([]);
     const filteredCountries: Country[] = [];
-    let index = 0;
     countries.forEach((country) => {
       const isFavorite = favorite.countryCodes.includes(country.alpha2Code);
       if (props.isFavoriteCountriesList && !isFavorite) {
@@ -50,14 +45,10 @@ const Countries = (props: Props) => {
       ) {
         return;
       }
-      if (index >= countriesLimit) {
-        return;
-      }
-      index++;
       filteredCountries.push(country);
     });
     setCountriesToRender(filteredCountries);
-  }, [countries, favorite.countryCodes, searchString, countriesLimit]);
+  }, [countries, favorite.countryCodes, searchString]);
 
   const renderCountry = (listItem: ListRenderItemInfo<Country>) => {
     const country = listItem.item;
@@ -72,9 +63,6 @@ const Countries = (props: Props) => {
       />
     );
   };
-
-  const handleSetLimit = () =>
-    setCountriesLimit((currentLimit: number) => currentLimit + LIMIT);
 
   const CountriesList = useMemo(() => {
     return (
@@ -91,7 +79,6 @@ const Countries = (props: Props) => {
         keyExtractor={getKey}
         renderItem={renderCountry}
         showsVerticalScrollIndicator={false}
-        onEndReached={handleSetLimit}
       />
     );
   }, [countriesToRender]);
@@ -100,21 +87,21 @@ const Countries = (props: Props) => {
     return <ActivityIndicator />;
   }
 
-  return <>{CountriesList}</>;
+  return CountriesList;
 };
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 12 },
 
   scrollView: {
-    backgroundColor: "#FFF",
+    backgroundColor,
   },
 
   cardContainer: {
     margin: 2,
     marginBottom: 32,
     borderRadius: 4,
-    backgroundColor: "#FFF",
+    backgroundColor,
     flex: 1,
     padding: 12,
     ...getShadowStyle(4),

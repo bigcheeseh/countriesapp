@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { backgroundColor, errorColor, getShadowStyle } from "src/Common/styles";
+import { backgroundColor, errorColor, errorShadowColor, getShadowStyle } from "src/Common/styles";
 import Subscriber from "src/Subscriber";
 
 interface Props {
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     padding: 8,
     alignItems: "center",
     flexDirection: "row",
-    ...getShadowStyle(4),
+    ...getShadowStyle(4, errorShadowColor),
   },
 });
 
