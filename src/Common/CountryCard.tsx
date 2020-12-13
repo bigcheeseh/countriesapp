@@ -22,7 +22,7 @@ interface Props {
   onStarPress?(e: GestureResponderEvent): void;
 }
 
-const EventCard = (props: Props) => {
+const CountryCard = (props: Props) => {
   const navigation = useNavigation();
   const { style } = props;
   const handleNavigate = () =>
@@ -40,7 +40,7 @@ const EventCard = (props: Props) => {
           <View style={styles.flagContainer}>
             <FlagImage
               countryCode={props.country.alpha2Code}
-              logoUri={props.country.flag}
+              flagUri={props.country.flag}
             />
             <TouchableOpacity onPress={props.onStarPress}>
               <Star
@@ -82,4 +82,4 @@ const styles = StyleSheet.create({
   text: { marginRight: 4 },
 });
 
-export default EventCard;
+export default CountryCard;

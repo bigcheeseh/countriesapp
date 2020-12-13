@@ -6,7 +6,7 @@ import { SvgXml } from "react-native-svg";
 export interface OwnProps {
   countryCode: string;
   style?: ImageStyle;
-  logoUri: string;
+  flagUri: string;
 }
 
 interface Props extends OwnProps {}
@@ -35,7 +35,7 @@ const FlagImage = (props: Props) => {
       if (!countriesWithUniqueFlag.includes(props.countryCode)) {
         return;
       }
-      const image = await fetch(props.logoUri);
+      const image = await fetch(props.flagUri);
       const imageText = await image.text();
       const width = imageText.match(/width=\"(.*?)\"/)![1];
       const height = imageText.match(/height=\"(.*?)\"/)![1];
@@ -43,7 +43,7 @@ const FlagImage = (props: Props) => {
       setImageXml(imageText);
     };
     setSvgImageXml();
-  }, [props.logoUri]);
+  }, [props.flagUri]);
   return (
     <View style={styles.container}>
       {imageXml ? (

@@ -18,9 +18,9 @@ const FavoriteCountriesWrapper = (props: Props) => {
 
   useEffect(() => {
     const setFavoriteCountryCodesAsync = async () => {
-      const favCountryCodes = ((await AsyncStorage.getItem(
+      const favCountryCodes = (await AsyncStorage.getItem(
         "favoriteCountryCodes",
-      )) || []) as string;
+      ) || []) as string;
       setFavoriteCountryCode(JSON.parse(favCountryCodes) as string[]);
     };
     setFavoriteCountryCodesAsync();

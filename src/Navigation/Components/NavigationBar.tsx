@@ -15,11 +15,11 @@ const BottomNavigationBar = () => {
   const route = useRoute();
   const currentRoute = route as typeof route & { state?: NavigationState };
 
-  const navigateToScheduleScreen = () => {
+  const navigateToCountriesScreen = () => {
     navigate("Countries");
   };
 
-  const navigateToSettingsScreen = () => {
+  const navigateToFavoritesScreen = () => {
     navigate("Favorites");
   };
 
@@ -43,13 +43,13 @@ const BottomNavigationBar = () => {
     <SafeAreaView style={styles.container}>
       <>
         <NavigationButton
-          handlePress={navigateToScheduleScreen}
+          handlePress={navigateToCountriesScreen}
           isActive={isActive("Countries")}
           label="Countries"
           Icon={MapMarker}
         />
         <NavigationButton
-          handlePress={navigateToSettingsScreen}
+          handlePress={navigateToFavoritesScreen}
           isActive={isActive("Favorites")}
           label="Favorites"
           Icon={Star}

@@ -11,12 +11,12 @@ import SearchBar from "src/Common/SearchBar";
 import { getShadowStyle, backgroundColor, themeColor } from "src/Common/styles";
 import { FavoriteCountries } from "src/Context/FavoriteCountries";
 
-const getKey = (item: Country) => String(item.alpha3Code);
 
 interface Props {
   isFavoriteCountriesList?: boolean;
 }
 
+const getKey = (item: Country) => String(item.alpha3Code);
 
 const Countries = (props: Props) => {
   const [countries, setCountries] = useState<Country[]>();
@@ -36,8 +36,7 @@ const Countries = (props: Props) => {
     if(!countries) return;
     const filteredCountries: Country[] = [];
     countries.forEach((country) => {
-      const isFavorite = favorite.countryCodes.includes(country.alpha2Code);
-      if (props.isFavoriteCountriesList && !isFavorite) {
+      if (props.isFavoriteCountriesList && !favorite.countryCodes.includes(country.alpha2Code)) {
         return;
       }
       if (
