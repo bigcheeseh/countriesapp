@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { GestureResponderEvent, StyleSheet, Text } from "react-native";
 import { Country } from "src/Api";
 import CountryCard from "src/Common/CountryCard";
-import { getShadowStyle, backgroundColor } from "src/Common/styles";
+import { backgroundColor, getShadowStyle } from "src/Common/styles";
 import TextParagraph from "src/Common/TextParagraph";
 import { FavoriteCountries } from "src/Context/FavoriteCountries";
 

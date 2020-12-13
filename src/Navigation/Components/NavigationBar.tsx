@@ -5,7 +5,7 @@ import {
 } from "@react-navigation/native";
 import * as React from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
-import { getShadowStyle, backgroundColor } from "src/Common/styles";
+import { backgroundColor, getShadowStyle } from "src/Common/styles";
 import MapMarker from "src/Icons/MapMarker";
 import Star from "src/Icons/Star";
 import NavigationButton from "./NavigationButton";

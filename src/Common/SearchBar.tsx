@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, TextInput, View } from "react-native";
-import { getShadowStyle, themeColor, backgroundColor, themeShadowColor } from "src/Common/styles";
+import { backgroundColor, getShadowStyle, themeColor, themeShadowColor } from "src/Common/styles";
 import Search from "src/Icons/Search";
 
 interface Props {

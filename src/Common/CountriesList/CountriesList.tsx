@@ -8,7 +8,7 @@ import {
 import Api, { Country } from "src/Api";
 import CountryCard from "src/Common/CountryCard";
 import SearchBar from "src/Common/SearchBar";
-import { getShadowStyle, backgroundColor, themeColor } from "src/Common/styles";
+import { backgroundColor, getShadowStyle, themeColor } from "src/Common/styles";
 import { FavoriteCountries } from "src/Context/FavoriteCountries";
 
 
@@ -33,7 +33,7 @@ const Countries = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    if(!countries) return;
+    if(!countries) { return; }
     const filteredCountries: Country[] = [];
     countries.forEach((country) => {
       if (props.isFavoriteCountriesList && !favorite.countryCodes.includes(country.alpha2Code)) {

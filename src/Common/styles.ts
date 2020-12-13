@@ -2,7 +2,7 @@ import { Platform } from "react-native";
 
 export const shadowColor = "#CCC";
 export const themeColor = "#009ACD";
-export const themeShadowColor = "#009ACD88"
+export const themeShadowColor = "#009ACD88";
 export const favoriteColor = "#ffd27d";
 export const backgroundColor = "#fff";
 export const errorColor = "#ff3333";
