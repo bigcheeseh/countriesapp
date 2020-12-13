@@ -10,7 +10,7 @@ import MapMarker from "src/Icons/MapMarker";
 import Star from "src/Icons/Star";
 import NavigationButton from "./NavigationButton";
 
-const BottomNavigationBar = () => {
+const NavigationBar = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const currentRoute = route as typeof route & { state?: NavigationState };
@@ -69,4 +69,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BottomNavigationBar;
+export default NavigationBar;
