@@ -35,7 +35,7 @@ const Countries = (props: Props) => {
   useEffect(() => {
     if(!countries) { return; }
     const filteredCountries: Country[] = [];
-    countries.forEach((country) => {
+    countries.forEach((country, i) => {
       if (props.isFavoriteCountriesList && !favorite.countryCodes.includes(country.alpha2Code)) {
         return;
       }
@@ -49,7 +49,7 @@ const Countries = (props: Props) => {
       filteredCountries.push(country);
     });
     setCountriesToRender(filteredCountries);
-  }, [countries, favorite.countryCodes, searchString]);
+  }, props.isFavoriteCountriesList ? [countries, favorite.countryCodes, searchString] : [countries, searchString]);
 
   const renderCountry = (listItem: ListRenderItemInfo<Country>) => {
     const country = listItem.item;

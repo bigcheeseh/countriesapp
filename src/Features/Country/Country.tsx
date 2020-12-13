@@ -1,11 +1,10 @@
 import { RouteProp, useRoute } from "@react-navigation/native";
-import React, { useContext } from "react";
+import React from "react";
 import { StyleSheet, Text } from "react-native";
 import { Country } from "src/Api";
 import CountryCard from "src/Common/CountryCard";
 import { backgroundColor, getShadowStyle } from "src/Common/styles";
 import TextParagraph from "src/Common/TextParagraph";
-import { FavoriteCountries } from "src/Context/FavoriteCountries";
 
 interface RouteParams extends Country {}
 
@@ -13,7 +12,6 @@ type TranslationsKeys = keyof Country["translations"];
 
 const CountryScreen = () => {
   const route = useRoute<RouteProp<{ params: RouteParams }, "params">>();
-  const favorite = useContext(FavoriteCountries);
 
   return (
     <CountryCard
