@@ -8,7 +8,7 @@ import {
 import Api, { Country } from "src/Api";
 import CountryCard from "src/Common/CountryCard";
 import SearchBar from "src/Common/SearchBar";
-import { getShadowStyle, backgroundColor } from "src/Common/styles";
+import { getShadowStyle, backgroundColor, themeColor } from "src/Common/styles";
 import { FavoriteCountries } from "src/Context/FavoriteCountries";
 
 const getKey = (item: Country) => String(item.alpha3Code);
@@ -17,8 +17,9 @@ interface Props {
   isFavoriteCountriesList?: boolean;
 }
 
+
 const Countries = (props: Props) => {
-  const [countries, setCountries] = useState<Country[]>([]);
+  const [countries, setCountries] = useState<Country[]>();
   const [searchString, setSearchString] = useState<string | undefined>();
   const [countriesToRender, setCountriesToRender] = useState<Country[]>([]);
 
@@ -32,6 +33,7 @@ const Countries = (props: Props) => {
   }, []);
 
   useEffect(() => {
+    if(!countries) return;
     const filteredCountries: Country[] = [];
     countries.forEach((country) => {
       const isFavorite = favorite.countryCodes.includes(country.alpha2Code);
@@ -83,8 +85,8 @@ const Countries = (props: Props) => {
     );
   }, [countriesToRender]);
 
-  if (!countriesToRender) {
-    return <ActivityIndicator />;
+  if (!countries) {
+    return <ActivityIndicator style={styles.spinner} color={themeColor} />;
   }
 
   return CountriesList;
@@ -92,7 +94,7 @@ const Countries = (props: Props) => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 12 },
-
+  spinner: { height: 64 },
   scrollView: {
     backgroundColor,
   },
